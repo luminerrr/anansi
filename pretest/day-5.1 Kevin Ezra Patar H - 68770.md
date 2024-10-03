@@ -1,0 +1,162 @@
+#### **Optional Questions:**
+1. Which method is called when an activity is first created?
+   - a) `onResume()`
+   - b) `onPause()`
+   - c) `onStart()`
+   - d) `onCreate()`
+   - e) `onDestroy()`
+   Answer: D
+
+2. What is the purpose of `onSaveInstanceState()` in an activity?
+   - a) To start a new activity
+   - b) To save temporary UI state when the activity is killed
+   - c) To initialize UI components
+   - d) To handle user inputs
+   - e) To destroy an activity
+   Answer: B
+
+
+3. How do you navigate between activities in Android?
+   - a) Using intents
+   - b) Using `ActivityManager`
+   - c) Using `FragmentTransaction`
+   - d) Using `startFragment()`
+   - e) None of the above
+   Answer: A
+
+4. What does `finish()` do in an activity?
+   - a) Pauses the activity
+   - b) Starts a new activity
+   - c) Destroys the current activity
+   - d) Saves the activity's state
+   - e) None of the above
+   Answer: C
+
+5. What is the role of `setContentView()` in an activity?
+   - a) To initialize the activity's lifecycle
+   - b) To define the UI layout for the activity
+   - c) To create a new fragment
+   - d) To destroy the activity
+   - e) To handle background processes
+   Answer: B
+
+
+#### **True/False Questions:**
+1. Every activity in Android must define its own layout in an XML file. (False)
+2. `onResume()` is called after `onCreate()` when the activity becomes visible. (True)
+3. Activities in Android are always destroyed when the user rotates the screen. (False)
+4. The `onPause()` method is called when the activity loses foreground focus. (True)
+5. You cannot start another activity from within an activity. (False)
+
+#### **Short Answer Questions:**
+1. What is the difference between `onPause()` and `onStop()` in the activity lifecycle?
+Answer: `onPause()` is called when the activity loses foreground focus, while `onStop ()` is called when the activity is no longer visible to the user.
+
+2. How do you pass data from one activity to another using an `Intent`?
+Answer: Use  the `putExtra()` method to add data to the `Intent`, and then retrieve it in the receiving activity using the `getIntent()` method.
+
+3. What is the significance of `onSaveInstanceState()` when handling screen rotations?
+Answer: It allows the activity to save its temporary UI state when the screen is rotated, so that it can be restored when the activity is recreated.
+
+4. Describe how an activity transitions through different lifecycle states when the user presses the back button.
+Answer:  When the user presses the back button, the activity transitions from the `resume` state to  the `pause` state, then to the `stop` state, and finally to the `destroy` state.
+
+
+5. How can you start a new activity and expect a result from it in the current activity?
+Answer: Use the `startActivityForResult()` method to start the new activity, and then override the `onActivityResult()` method in the current activity to handle the result.
+
+#### **Code Fix Questions:**
+1. **Incorrect code:**
+   ```kotlin
+   startActivity(MainActivity::class.java)
+   ```
+   **Fix the code and explain why it doesn't work.**
+   **Correct code:**
+   ```kotlin
+   val intent = Intent(this, MainActivity::class.java)
+   startActivity(intent)
+   ```
+   **Explanation:** The `startActivity()` method requires an `Intent` object as a parameter, which is created using the `Intent` constructor.
+
+
+2. **Incorrect code:**
+   ```kotlin
+   override fun onCreate(savedInstanceState: Bundle) {
+       super.onCreate()
+   }
+   ```
+   **Fix the code to properly initialize the activity with a layout.**
+   **Correct code:**
+   ```kotlin
+   override fun onCreate(savedInstanceState: Bundle) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+   }
+   ```
+
+3. **Incorrect code:**
+   ```kotlin
+   onDestroy() {
+       super.onDestroy()
+   }
+   ```
+   **Fix the code to properly override the `onDestroy()` method.**
+   **Correct code:**
+   ```kotlin
+   override fun onDestroy() {
+        super.onDestroy()
+   }
+   ```
+
+### Project Creation Tasks
+
+#### 1. **Basic Activity Creation**
+   **Task:**
+   - Create a simple activity that displays a "Hello, World!" message.
+   
+   **Instructions:**
+   1. Create a new Android project.
+   2. Define the layout in XML (`activity_main.xml`) with a `TextView` for the message.
+   3. In the `MainActivity`, use `setContentView(R.layout.activity_main)` to bind the layout.
+   4. Run the app and ensure the message is displayed.
+
+#### 2. **Passing Data Between Activities**
+   **Task:**
+   - Create two activities: one to collect a user’s name and another to display it.
+   
+   **Instructions:**
+   1. Create two activities: `MainActivity` and `DisplayActivity`.
+   2. In `MainActivity`, add an `EditText` and a `Button` in the layout.
+   3. On button click, pass the name entered in `EditText` to `DisplayActivity` using an `Intent`.
+   4. In `DisplayActivity`, retrieve the name from the intent and display it in a `TextView`.
+
+#### 3. **Activity Lifecycle Logging**
+   **Task:**
+   - Create an activity that logs lifecycle method calls (`onCreate()`, `onStart()`, etc.) to the console.
+   
+   **Instructions:**
+   1. In `MainActivity`, override lifecycle methods like `onCreate()`, `onStart()`, `onResume()`, etc.
+   2. Use `Log.d(TAG, "Message")` to log each lifecycle call.
+   3. Run the app and observe the lifecycle logs in Logcat.
+
+#### 4. **Activity with Implicit Intent**
+   **Task:**
+   - Create an activity that allows users to open a webpage using an implicit intent.
+   
+   **Instructions:**
+   1. Add a `Button` in `MainActivity` to trigger the intent.
+   2. In `MainActivity`, create an implicit intent to open a URL in the browser.
+   3. Use `startActivity()` to start the browser when the button is clicked.
+
+#### 5. **Activity for Result**
+   **Task:**
+   - Create two activities where `MainActivity` starts `SecondActivity` and gets a result back.
+   
+   **Instructions:**
+   1. Create `MainActivity` and `SecondActivity`.
+   2. In `MainActivity`, start `SecondActivity` using `startActivityForResult()`.
+   3. In `SecondActivity`, return a result (e.g., a message) back to `MainActivity`.
+   4. In `MainActivity`, override `onActivityResult()` to receive and display the result.
+
+These tasks and questions should provide a comprehensive overview for your students to understand activities in Android development.
